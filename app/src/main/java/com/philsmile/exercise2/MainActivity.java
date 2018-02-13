@@ -11,10 +11,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.philsmile.exercise2.Classes.Post;
-import com.philsmile.exercise2.Classes.User;
+import com.philsmile.exercise2.Classes.DisplayPost;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
     String postsURL = "https://jsonplaceholder.typicode.com/posts";
     String usersURL = "https://jsonplaceholder.typicode.com/users";
 
-    ArrayList<Post> arrayListPost = new ArrayList<>();
-    ArrayList<User> arrayListUser = new ArrayList<>();
+    ArrayList<DisplayPost> arrayListDisplay = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                                 String title = user.getString("title");
                                 String body = user.getString("body");
 
-                                arrayListPost.add(new Post(id,userID,title,body));
+                                arrayListDisplay.add(new DisplayPost(id,userID,"",title,body));
                             }
 
                         }catch (JSONException e){
@@ -96,7 +93,18 @@ public class MainActivity extends AppCompatActivity {
                                 String id = user.getString("id");
                                 String name = user.getString("name");
 
-                                arrayListUser.add(new User(id,name));
+                                for(int j=0; j<arrayListDisplay.size(); j++){
+                                    DisplayPost post = arrayListDisplay.get(j);
+                                    String userID = post.getUserID().toString();
+
+                                    if(id.toString().equals(userID.toString())){
+                                        post.setUserName(name.toString());
+                                        Log.i("XOXO",post.getPostID().toString()
+                                                +"--"+ id.toString()
+                                                +"--"+ post.getUserName().toString());
+                                    }
+                                }
+
                             }
 
                         }catch (JSONException e){
@@ -118,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(jsonArrayRequestUsers);
 
 
-
-
     }
+
 }
