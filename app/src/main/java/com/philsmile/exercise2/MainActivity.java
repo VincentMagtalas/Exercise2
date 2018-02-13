@@ -3,6 +3,8 @@ package com.philsmile.exercise2;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.philsmile.exercise2.Adapters.PostRecyclerViewAdapter;
 import com.philsmile.exercise2.Classes.DisplayPost;
 
 import org.json.JSONArray;
@@ -26,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
     String usersURL = "https://jsonplaceholder.typicode.com/users";
 
     ArrayList<DisplayPost> arrayListDisplay = new ArrayList<>();
+    RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        rv = (RecyclerView) findViewById(R.id.post_rv);
 
         final Context mContext = getApplicationContext();
 
@@ -121,10 +127,13 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+        PostRecyclerViewAdapter postRecyclerViewAdapter = new PostRecyclerViewAdapter(arrayListDisplay,mContext);
+        rv.setLayoutManager(new LinearLayoutManager(mContext));
+        rv.setAdapter(postRecyclerViewAdapter);
+
         // Add JsonObjectRequest to the RequestQueue
         requestQueue.add(jsonArrayRequestPosts);
         requestQueue.add(jsonArrayRequestUsers);
-
 
     }
 
