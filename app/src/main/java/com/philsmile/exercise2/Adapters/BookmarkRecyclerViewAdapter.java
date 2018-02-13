@@ -4,6 +4,7 @@ package com.philsmile.exercise2.Adapters;
  * Created by philsmile on 2/13/2018.
  */
 
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -32,30 +33,30 @@ import com.philsmile.exercise2.db.Bookmark;
 import com.philsmile.exercise2.db.BookmarkDao;
 import com.philsmile.exercise2.db.DaoSession;
 
-public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder> {
+public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<DisplayPost> postList;
     private Context context;
 
     DaoSession daoSession;
 
-    public PostRecyclerViewAdapter(ArrayList<DisplayPost> cLst, Context ctx) {
+    public BookmarkRecyclerViewAdapter(ArrayList<DisplayPost> cLst, Context ctx) {
         postList = cLst;
         context = ctx;
         daoSession = ((AppController) context).getDaoSession();
     }
 
     @Override
-    public PostRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookmarkRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_bookmark, parent, false);
 
-        PostRecyclerViewAdapter.ViewHolder viewHolder = new PostRecyclerViewAdapter.ViewHolder(view);
+        BookmarkRecyclerViewAdapter.ViewHolder viewHolder = new BookmarkRecyclerViewAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final PostRecyclerViewAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final BookmarkRecyclerViewAdapter.ViewHolder holder, final int position) {
         final DisplayPost post = postList.get(position);
 
 

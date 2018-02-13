@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<DisplayPost> arrayListDisplay = new ArrayList<>();
     RecyclerView rv;
 
-    DaoSession daoSession;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

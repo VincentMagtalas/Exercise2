@@ -17,6 +17,8 @@ public class BookmarkDao extends AbstractDao<Bookmark, Long> {
 
     public static final String TABLENAME = "BOOKMARK";
 
+
+
     /**
      * Properties of entity Bookmark.<br/>
      * Can be used for QueryBuilder and for referencing column names.
