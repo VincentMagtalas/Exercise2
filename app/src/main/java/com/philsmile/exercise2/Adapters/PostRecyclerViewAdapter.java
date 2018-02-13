@@ -92,7 +92,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         bookmark.setBody(dp.getBody().toString());
 
         bookmarkDao.insert(bookmark);
-        Toast.makeText(context, "Item Bookmark", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Item Added to Bookmark", Toast.LENGTH_SHORT).show();
     }
 
     @Override

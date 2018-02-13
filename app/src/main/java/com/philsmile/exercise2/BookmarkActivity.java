@@ -54,7 +54,7 @@ public class BookmarkActivity extends AppCompatActivity {
             Bookmark bookmark = arrayListBookmark.get(i);
 
             String postid = bookmark.getPostid().toString();
-            String userid = String.valueOf(bookmark.getUserid());
+            String userid = String.valueOf(bookmark.getId());
             String username = bookmark.getUsername().toString();
             String title = bookmark.getTitle().toString();
             String body = bookmark.getBody().toString();

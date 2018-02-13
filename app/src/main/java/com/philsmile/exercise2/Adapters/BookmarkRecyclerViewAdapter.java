@@ -7,6 +7,7 @@ package com.philsmile.exercise2.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -27,11 +28,14 @@ import java.util.ArrayList;
  * Created by philsmile on 2/8/2018.
  */
 import com.philsmile.exercise2.AppController;
+import com.philsmile.exercise2.BookmarkActivity;
 import com.philsmile.exercise2.R;
 import com.philsmile.exercise2.Classes.DisplayPost;
 import com.philsmile.exercise2.db.Bookmark;
 import com.philsmile.exercise2.db.BookmarkDao;
 import com.philsmile.exercise2.db.DaoSession;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRecyclerViewAdapter.ViewHolder> {
 
@@ -61,6 +65,7 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
 
 
         String postid = post.getPostID().toString();
+        final String bookmarkID = post.getUserID().toString();
         String username = post.getUserName().toString();
         String body = post.getBody().toString();
 
@@ -71,29 +76,23 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
             @Override
             public boolean onLongClick(View view) {
 
-                insertItem(position);
-                holder.imgBookmarks.setVisibility(View.VISIBLE);
-
+                deleteBookmarkItem(Long.parseLong(bookmarkID));
                 return false;
             }
         });
 
     }
 
-    private void insertItem(int position){
-        DisplayPost dp = postList.get(position);
+    private void deleteBookmarkItem(long id){
+        //// Get the entity dao we need to work with.
+        BookmarkDao groceryDao = daoSession.getBookmarkDao();
+        /// perform delete operation
+        groceryDao.deleteByKey(id);
 
-        BookmarkDao bookmarkDao = daoSession.getBookmarkDao();
-        Bookmark bookmark = new Bookmark();
-
-        bookmark.setPostid(dp.getPostID().toString());
-        bookmark.setUserid(Integer.parseInt(dp.getUserID().toString()));
-        bookmark.setUsername(dp.getUserName().toString());
-        bookmark.setTitle(dp.getTitle().toString());
-        bookmark.setBody(dp.getBody().toString());
-
-        bookmarkDao.insert(bookmark);
-        Toast.makeText(context, "Item Bookmark", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Bookmark Removed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, BookmarkActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     @Override
