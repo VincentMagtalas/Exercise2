@@ -8,6 +8,11 @@
     android:orientation="vertical"
     tools:context="com.philsmile.exercise2.MainActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        ></include>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/post_rv"
         android:layout_width="match_parent"

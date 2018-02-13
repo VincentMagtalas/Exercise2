@@ -7,8 +7,4 @@
         android:icon="@android:drawable/ic_search_category_default"
         android:title="Search"
         app:showAsAction="ifRoom|collapseActionView" />
-    <item
-        android:id="@+id/menu_bookmark"
-        android:title="Bookmarks"
-        app:showAsAction="never|always" />
 </menu>
