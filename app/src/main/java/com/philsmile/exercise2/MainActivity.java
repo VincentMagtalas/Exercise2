@@ -2,11 +2,15 @@ package com.philsmile.exercise2;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -17,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.philsmile.exercise2.Adapters.PostRecyclerViewAdapter;
 import com.philsmile.exercise2.Classes.DisplayPost;
+import com.philsmile.exercise2.db.DaoSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<DisplayPost> arrayListDisplay = new ArrayList<>();
     RecyclerView rv;
+
+    DaoSession daoSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +143,30 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(jsonArrayRequestPosts);
         requestQueue.add(jsonArrayRequestUsers);
 
+        //GreenDAO
+
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_bookmark:
+                Intent intent = new Intent(getApplicationContext(),BookmarkActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 }
