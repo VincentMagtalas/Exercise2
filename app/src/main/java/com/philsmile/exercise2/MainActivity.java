@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+
         rv = (RecyclerView) findViewById(R.id.post_rv);
 
         final Context mContext = getApplicationContext();
@@ -202,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(edtSeach.getWindowToken(), 0);
 
             //add the search icon in the action bar
-            //mSearchAction.setIcon(getResources().getDrawable(R.drawable.ic_search_category_default));
+            mSearchAction.setIcon(getResources().getDrawable(R.drawable.ic_search));
 
             isSearchOpened = false;
         } else { //open the search entry
@@ -235,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             //add the close icon
-            //mSearchAction.setIcon(getResources().getDrawable(R.drawable.ic_close_search));
+            mSearchAction.setIcon(getResources().getDrawable(R.drawable.ic_close));
 
             isSearchOpened = true;
         }
