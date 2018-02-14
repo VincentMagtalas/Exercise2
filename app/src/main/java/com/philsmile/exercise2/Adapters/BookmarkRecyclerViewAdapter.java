@@ -29,6 +29,7 @@ import java.util.ArrayList;
  */
 import com.philsmile.exercise2.AppController;
 import com.philsmile.exercise2.BookmarkActivity;
+import com.philsmile.exercise2.MainActivity;
 import com.philsmile.exercise2.R;
 import com.philsmile.exercise2.Classes.DisplayPost;
 import com.philsmile.exercise2.db.Bookmark;
@@ -90,8 +91,8 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
         groceryDao.deleteByKey(id);
 
         Toast.makeText(context, "Bookmark Removed", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(context, BookmarkActivity.class);
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
 

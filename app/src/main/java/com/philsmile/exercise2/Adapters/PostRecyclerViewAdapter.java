@@ -6,6 +6,7 @@ package com.philsmile.exercise2.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -26,11 +27,14 @@ import java.util.ArrayList;
  * Created by philsmile on 2/8/2018.
  */
 import com.philsmile.exercise2.AppController;
+import com.philsmile.exercise2.MainActivity;
 import com.philsmile.exercise2.R;
 import com.philsmile.exercise2.Classes.DisplayPost;
 import com.philsmile.exercise2.db.Bookmark;
 import com.philsmile.exercise2.db.BookmarkDao;
 import com.philsmile.exercise2.db.DaoSession;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder> {
 
@@ -72,6 +76,11 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
                 insertItem(position);
                 holder.imgBookmarks.setVisibility(View.VISIBLE);
+
+                Toast.makeText(context, "Added to bookmark", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                context.startActivity(intent);
 
                 return false;
             }
