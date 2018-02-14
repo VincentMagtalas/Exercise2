@@ -4,19 +4,18 @@ package com.philsmile.exercise2.Adapters;
  * Created by philsmile on 2/13/2018.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Build;
-import android.support.v7.app.AlertDialog;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,10 +35,12 @@ import com.philsmile.exercise2.db.DaoSession;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder> {
+public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>{
 
     private ArrayList<DisplayPost> postList;
     private Context context;
+    private AppCompatActivity cmain;
+    Context contexts;
 
     DaoSession daoSession;
 
@@ -53,6 +54,8 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
     public PostRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
+
+        contexts = view.getContext();
 
         PostRecyclerViewAdapter.ViewHolder viewHolder = new PostRecyclerViewAdapter.ViewHolder(view);
         return viewHolder;
@@ -73,19 +76,46 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         holder.cardItem.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-
-                insertItem(position);
-                holder.imgBookmarks.setVisibility(View.VISIBLE);
-
-                Toast.makeText(context, "Added to bookmark", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.addFlags(FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                context.startActivity(intent);
-
+                showDialog(position,holder);
                 return false;
             }
         });
 
+    }
+
+    private void showDialog(final int position, final ViewHolder holder) {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(contexts);
+
+        // set title
+        alertDialogBuilder.setTitle("Bookmark");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Do you want to add this item to bookmark?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        insertItem(position);
+                        holder.imgBookmarks.setVisibility(View.VISIBLE);
+
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.addFlags(FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        context.startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
     }
 
     private void insertItem(int position){

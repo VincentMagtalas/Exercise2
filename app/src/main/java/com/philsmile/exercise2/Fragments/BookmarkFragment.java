@@ -6,7 +6,6 @@ package com.philsmile.exercise2.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -14,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,27 +24,14 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.philsmile.exercise2.Adapters.BookmarkRecyclerViewAdapter;
-import com.philsmile.exercise2.Adapters.PostRecyclerViewAdapter;
 import com.philsmile.exercise2.AppController;
-import com.philsmile.exercise2.BookmarkActivity;
 import com.philsmile.exercise2.Classes.DisplayPost;
 import com.philsmile.exercise2.R;
 import com.philsmile.exercise2.db.Bookmark;
 import com.philsmile.exercise2.db.BookmarkDao;
 import com.philsmile.exercise2.db.DaoSession;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 

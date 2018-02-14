@@ -6,7 +6,6 @@ package com.philsmile.exercise2.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -35,8 +34,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.philsmile.exercise2.Adapters.PostRecyclerViewAdapter;
-import com.philsmile.exercise2.BookmarkActivity;
 import com.philsmile.exercise2.Classes.DisplayPost;
+import com.philsmile.exercise2.MainActivity;
 import com.philsmile.exercise2.R;
 
 import org.json.JSONArray;
@@ -165,7 +164,8 @@ public class MainFragment extends Fragment{
                 }
         );
 
-        PostRecyclerViewAdapter postRecyclerViewAdapter = new PostRecyclerViewAdapter(arrayListDisplay,mContext);
+        PostRecyclerViewAdapter postRecyclerViewAdapter;
+        postRecyclerViewAdapter = new PostRecyclerViewAdapter(arrayListDisplay,mContext);
         rv.setLayoutManager(new LinearLayoutManager(mContext));
         rv.setAdapter(postRecyclerViewAdapter);
 

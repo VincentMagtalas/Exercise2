@@ -5,16 +5,12 @@ package com.philsmile.exercise2.Adapters;
  */
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Build;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +24,9 @@ import java.util.ArrayList;
  * Created by philsmile on 2/8/2018.
  */
 import com.philsmile.exercise2.AppController;
-import com.philsmile.exercise2.BookmarkActivity;
 import com.philsmile.exercise2.MainActivity;
 import com.philsmile.exercise2.R;
 import com.philsmile.exercise2.Classes.DisplayPost;
-import com.philsmile.exercise2.db.Bookmark;
 import com.philsmile.exercise2.db.BookmarkDao;
 import com.philsmile.exercise2.db.DaoSession;
 
@@ -42,6 +36,7 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
 
     private ArrayList<DisplayPost> postList;
     private Context context;
+    Context contexts;
 
     DaoSession daoSession;
 
@@ -55,6 +50,8 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
     public BookmarkRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_bookmark, parent, false);
+
+        contexts = view.getContext();
 
         BookmarkRecyclerViewAdapter.ViewHolder viewHolder = new BookmarkRecyclerViewAdapter.ViewHolder(view);
         return viewHolder;
@@ -76,12 +73,42 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
         holder.cardItem.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                showDialog(bookmarkID,position);
 
-                deleteBookmarkItem(Long.parseLong(bookmarkID));
                 return false;
             }
         });
 
+    }
+
+    private void showDialog(final String bookmarkid,final int position) {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(contexts);
+
+        // set title
+        alertDialogBuilder.setTitle("Bookmark");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Do you want to remove this item to bookmark?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        deleteBookmarkItem(Long.parseLong(bookmarkid));
+                    }
+                })
+                .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
     }
 
     private void deleteBookmarkItem(long id){
